@@ -32,6 +32,7 @@ exports.handler = async () => {
       currentTurn: null,
       upNext: [],
       history: [],
+      roundComplete: false,
     });
   }
 
@@ -56,6 +57,8 @@ exports.handler = async () => {
 
   const history = done.map(({ name, flower, number, doneAt }) => ({ name, flower, number, doneAt }));
 
+  const roundComplete = state.entries.length > 0 && !currentEntry;
+
   return resp(200, {
     initialized: true,
     totalSlots: state.totalSlots,
@@ -63,5 +66,6 @@ exports.handler = async () => {
     currentTurn,
     upNext,
     history,
+    roundComplete,
   });
 };
